@@ -1,5 +1,16 @@
 import sys
 
+""" Return the cartesian product of a string
+    Where sets are contained within '{}' brackets
+    Proceeding from inner '{}' brackets outwards
+"""
+def cartesian(s: str):
+    if ' ' in s:
+        raise InputException
+
+    consts, sets = tokenize(s)
+    return _cartesian(consts, sets)
+
 def _cartesian(consts, sets):
     results = []
     if len(sets) == 0:
@@ -11,17 +22,6 @@ def _cartesian(consts, sets):
                 for z in rest:
                     results.append(consts[0] + y + z)
     return results
-
-""" Return the cartesian product of a string
-    Where sets are contained within '{}' brackets
-    Proceeding from inner '{}' brackets outwards
-"""
-def cartesian(s: str):
-    if ' ' in s:
-        raise InputException
-
-    consts, sets = tokenize(s)
-    return _cartesian(consts, sets)
 
 """ Tokenize a string by '{}' brackets, returning 2 lists (consts, sets)
     consts: includes substrings outside outermost '{}' brackets
