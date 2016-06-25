@@ -5,10 +5,10 @@ def _cartesian(consts, sets):
     if len(sets) == 0:
         return consts
     else:
-        leftovers = _cartesian(consts[1:], sets[1:])
+        rest = _cartesian(consts[1:], sets[1:])
         for x in sets[0]:
             for y in cartesian(x):
-                for z in leftovers:
+                for z in rest:
                     results.append(consts[0] + y + z)
     return results
 
@@ -80,10 +80,9 @@ def split(s: str):
 class InputException(Exception):
     pass
 
-"""
-    run as: python cartesian.py "input_string"
-    * quotes are req'd, else bash's cartesian will split input up
-    * nested brackets will be parsed greedily
+""" example: python cartesian.py "input{x,y}{1,2,3}"
+    quotes are req'd, else bash's cartesian product will split input up
+    does not accept spaces (which would result in ambiguous output)
 """
 if __name__ == "__main__":
     try:
